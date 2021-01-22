@@ -13,7 +13,9 @@ module SolidusCardInputHelper
       end
       within_frame(find '#card_cvc iframe') { fill_in 'cvc', with: card[:code] }
       within_frame(find '#card_expiry iframe') do
-        "#{card[:exp_month]}#{card[:exp_year].last(2)}".split('').each { |n| find_field('exp-date').native.send_keys(n) }
+        "#{card[:exp_month]}#{card[:exp_year].last(2)}".split('').each { |n|
+          find_field('exp-date').native.send_keys(n)
+        }
       end
     else
       fill_in "Card Number", with: card[:number]

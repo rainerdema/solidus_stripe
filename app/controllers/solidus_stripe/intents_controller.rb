@@ -33,7 +33,8 @@ module SolidusStripe
       response = @intent.params
       # Note that if your API version is before 2019-02-11, 'requires_action'
       # appears as 'requires_source_action'.
-      if %w[requires_source_action requires_action].include?(response['status']) && response['next_action']['type'] == 'use_stripe_sdk'
+      if %w[requires_source_action
+            requires_action].include?(response['status']) && response['next_action']['type'] == 'use_stripe_sdk'
         render json: {
           requires_action: true,
           stripe_payment_intent_client_secret: response['client_secret']

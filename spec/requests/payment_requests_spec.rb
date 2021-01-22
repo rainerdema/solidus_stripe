@@ -23,7 +23,9 @@ RSpec.describe "Payment Request", type: :request do
 
         expect {
           with_disabled_forgery_protection do
-            post "/stripe/update_order", params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: nil), phone: '911')
+            post "/stripe/update_order",
+              params: stripe_update_request_params(order: order,
+                                                   shipping_address: default_shipping_address(phone: nil), phone: '911')
           end
         }.to change { order.shipping_address.phone }.to('911')
       end
@@ -36,7 +38,9 @@ RSpec.describe "Payment Request", type: :request do
 
         expect {
           with_disabled_forgery_protection do
-            post "/stripe/update_order", params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: '555'), phone: '911')
+            post "/stripe/update_order",
+              params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: '555'),
+                                                   phone: '911')
           end
         }.to change { order.shipping_address.phone }.to('555')
       end
@@ -50,7 +54,9 @@ RSpec.describe "Payment Request", type: :request do
 
         expect {
           with_disabled_forgery_protection do
-            post "/stripe/update_order", params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: nil), phone: nil)
+            post "/stripe/update_order",
+              params: stripe_update_request_params(order: order,
+                                                   shipping_address: default_shipping_address(phone: nil), phone: nil)
           end
         }.not_to change { order.shipping_address.phone }
       end
@@ -64,7 +70,9 @@ RSpec.describe "Payment Request", type: :request do
 
         expect {
           with_disabled_forgery_protection do
-            post "/stripe/update_order", params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: nil), phone: '911')
+            post "/stripe/update_order",
+              params: stripe_update_request_params(order: order,
+                                                   shipping_address: default_shipping_address(phone: nil), phone: '911')
           end
         }.to change { order.shipping_address.phone }.from(nil).to('911')
       end
@@ -78,7 +86,9 @@ RSpec.describe "Payment Request", type: :request do
 
         expect {
           with_disabled_forgery_protection do
-            post "/stripe/update_order", params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: '555'), phone: '911')
+            post "/stripe/update_order",
+              params: stripe_update_request_params(order: order, shipping_address: default_shipping_address(phone: '555'),
+                                                   phone: '911')
           end
         }.to change { order.shipping_address.phone }.from(nil).to('555')
       end
@@ -109,7 +119,7 @@ RSpec.describe "Payment Request", type: :request do
     shipping_address: nil,
     name: 'Clark Kent',
     phone: '555-555-0199'
-    )
+  )
 
     {
       shipping_address: shipping_address || default_shipping_address,
@@ -130,7 +140,7 @@ RSpec.describe "Payment Request", type: :request do
     postal_code: '12345',
     address_line: ['12, Lincoln Rd'],
     phone: '555-555-0199'
-    )
+  )
 
     if country.blank? || region.blank?
       state = create(:state)

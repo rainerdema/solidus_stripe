@@ -38,23 +38,23 @@ RSpec.describe SolidusStripe::CreateIntentsPaymentService do
 
   let(:intent) do
     double(params: {
-      "id" => intent_id,
-      "charges" => {
-        "data" => [{
-          "billing_details" => {
-            "name" => "John Doe"
-          },
-          "payment_method_details" => {
-            "card" => {
-              "brand" => "visa",
-              "exp_month" => 1,
-              "exp_year" => 2022,
-              "last4" => "4242"
-            },
-          }
-        }]
-      }
-    })
+             "id" => intent_id,
+             "charges" => {
+               "data" => [{
+                 "billing_details" => {
+                   "name" => "John Doe"
+                 },
+                 "payment_method_details" => {
+                   "card" => {
+                     "brand" => "visa",
+                     "exp_month" => 1,
+                     "exp_year" => 2022,
+                     "last4" => "4242"
+                   },
+                 }
+               }]
+             }
+           })
   end
 
   describe '#call' do
