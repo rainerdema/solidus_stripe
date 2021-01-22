@@ -7,6 +7,8 @@ RSpec.describe SolidusStripe::AddressFromParamsService do
   let(:state) { create :state }
 
   describe '#call' do
+    subject { service.call }
+
     let(:params) do
       {
         country: state.country.iso,
@@ -18,8 +20,6 @@ RSpec.describe SolidusStripe::AddressFromParamsService do
         phone: '555-555-0199'
       }
     end
-
-    subject { service.call }
 
     context "when there is no user" do
       let(:user) { nil }

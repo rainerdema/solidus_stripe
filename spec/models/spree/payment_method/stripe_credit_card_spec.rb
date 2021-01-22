@@ -42,7 +42,7 @@ describe Spree::PaymentMethod::StripeCreditCard do
   it 'can enable Stripe.js V3 Elements via preference setting' do
     expect do
       subject.preferred_v3_elements = true
-    end.to change { subject.v3_elements? }.from(false).to true
+    end.to change(subject, :v3_elements?).from(false).to true
   end
 
   describe '#stripe_config' do
@@ -258,7 +258,7 @@ describe Spree::PaymentMethod::StripeCreditCard do
 
       context 'when the payment is completed' do
         before do
-          allow(payment).to receive(:completed?) { true }
+          allow(payment).to receive(:completed?).and_return(true)
         end
 
         it 'creates a refund' do

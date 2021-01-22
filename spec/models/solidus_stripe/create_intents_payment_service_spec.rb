@@ -62,8 +62,8 @@ RSpec.describe SolidusStripe::CreateIntentsPaymentService do
 
     before do
       allow(stripe).to receive(:show_intent) { intent }
-      allow_any_instance_of(Spree::CreditCard).to receive(:require_card_numbers?) { false }
-      allow_any_instance_of(Spree::PaymentMethod::StripeCreditCard).to receive(:create_profile) { true }
+      allow_any_instance_of(Spree::CreditCard).to receive(:require_card_numbers?).and_return(false)
+      allow_any_instance_of(Spree::PaymentMethod::StripeCreditCard).to receive(:create_profile).and_return(true)
     end
 
     it { expect(subject).to be true }

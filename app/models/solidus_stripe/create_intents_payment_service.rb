@@ -34,7 +34,7 @@ module SolidusStripe
 
     def invalidate_previous_payment_intents_payments
       if stripe.v3_intents?
-        current_order.payments.pending.where(payment_method: stripe).each(&:void_transaction!)
+        current_order.payments.pending.where(payment_method: stripe).find_each(&:void_transaction!)
       end
     end
 

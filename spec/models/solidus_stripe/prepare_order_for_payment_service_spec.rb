@@ -30,15 +30,15 @@ RSpec.describe SolidusStripe::PrepareOrderForPaymentService do
     subject { service.call }
 
     it "sets the order ship and bill address" do
-      expect { subject }.to change { order.ship_address }.to(address)
-                                                         .and change { order.bill_address }.to(address)
+      expect { subject }.to change(order, :ship_address).to(address)
+                                                        .and change(order, :bill_address).to(address)
     end
 
     context "when the user is not logged in" do
       let(:user) { nil }
 
       it "sets the order email to allow guest checkout" do
-        expect { subject }.to change { order.email }.to(email)
+        expect { subject }.to change(order, :email).to(email)
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe SolidusStripe::PrepareOrderForPaymentService do
 
     context "when the order can be advanced to payment state" do
       it "advances the order to 'payment'" do
-        expect { subject }.to change { order.state }.to("payment")
+        expect { subject }.to change(order, :state).to("payment")
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe SolidusStripe::PrepareOrderForPaymentService do
       before { order.line_items.destroy_all }
 
       it "leaves the order to a previous state" do
-        expect { subject }.not_to change { order.state }
+        expect { subject }.not_to change(order, :state)
       end
     end
   end
