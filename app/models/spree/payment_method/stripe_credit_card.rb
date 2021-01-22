@@ -109,15 +109,17 @@ module Spree
         }.merge! address_for(payment)
 
         source = update_source!(payment.source)
-        if source.number.blank? && source.gateway_payment_profile_id.present?
-          creditcard = if v3_intents?
-                         ActiveMerchant::Billing::StripeGateway::StripePaymentToken.new('id' => source.gateway_payment_profile_id)
+        creditcard = if source.number.blank? && source.gateway_payment_profile_id.present?
+                       if v3_intents?
+                         ActiveMerchant::Billing::StripeGateway::StripePaymentToken.new(
+                           'id' => source.gateway_payment_profile_id
+                         )
                        else
                          source.gateway_payment_profile_id
                        end
-        else
-          creditcard = source
-        end
+                     else
+                       source
+                     end
 
         response = gateway.store(creditcard, options)
         if response.success?

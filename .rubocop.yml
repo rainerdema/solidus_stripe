@@ -5,3 +5,4 @@ AllCops:
   Exclude:
     - sandbox/**/*
     - spec/dummy/**/*
+    - db/migrate/*
